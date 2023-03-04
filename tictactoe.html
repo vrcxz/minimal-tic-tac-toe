@@ -1,0 +1,207 @@
+<html>
+  <head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+  <body>
+    <style>
+      body{background-color:222222;}
+      p{color: white;
+        display: inline;
+        font-size: 100;
+      }
+      p.player{font-size:15;}
+      p.progress{
+        font-size:35;
+        color: grey;
+      }
+      p.turns{
+        font-size:30;
+        color: grey;
+      }
+      div{
+        margin-top: 80px;
+        margin-left: 80px;
+      }
+    </style>
+    
+    <div id="container">
+    <p id="NW" onclick="change(1)">=</p>
+    <p id="N" onclick="change(2)">=</p>
+    <p id="NE" onclick="change(3)">=</p>
+    <br>
+    <p id="W" onclick="change(4)">=</p>
+    <p id="C" onclick="change(5)">=</p>
+    <p id="E" onclick="change(6)">=</p>
+    <br>
+    <p id="SW" onclick="change(7)">=</p>
+    <p id="S" onclick="change(8)">=</p>
+    <p id="SE" onclick="change(9)">=</p>
+    <br><br>
+    <p id="player" class="player">Player 1's turn</p>
+    <br>
+    <p id="progress" class="progress">In Progress</p>
+    <br>
+    <p id="turns" class="turns">Turns: 0</p>
+    </div>
+    <script>
+     var state = 0;
+     var NW=N=NE=W=C=E=SW=S=SE=100;
+     var turn=0;
+     var player_turn=0;
+     var player_character;
+     var p1 = "O";
+     var p2 = "X";
+     var player_result;
+     var p1_w = "Player 1 Wins";
+     var p2_w = "Player 2 Wins";
+     //Odd is player 1 
+     //Even is player 2
+     
+     
+     
+      function change(location){
+        if (state==0){
+       // console.log(location);
+        
+        turn++;
+        //console.log(turn);
+        player_turn = turn % 2;
+        
+        
+        if (player_turn==1){
+          document.getElementById("player").innerHTML = "Player 2's turn";
+          console.log("Player 2's turn");
+          player_character = p1;
+          player_result = p1_w;
+        }
+        else if (player_turn==0){
+          document.getElementById("player").innerHTML = "Player 1's turn";
+          console.log("Player 1's turn");
+          player_character = p2;
+          player_result = p2_w;
+        }
+        else {console.log("dunno");
+        }
+        
+        
+        
+        //CHANGE = TO O AND X
+        switch (location){
+          case 1 : document.getElementById("NW").innerHTML = player_character;
+          NW=player_turn;
+          break;
+          case 2 : document.getElementById("N").innerHTML = player_character;
+          N=player_turn;
+          break;
+          case 3 : document.getElementById("NE").innerHTML = player_character;
+          NE=player_turn;
+          break;
+          case 4 : document.getElementById("W").innerHTML = player_character;
+          W=player_turn;
+          break;
+          case 5 : document.getElementById("C").innerHTML = player_character;
+          C=player_turn;
+          break;
+          case 6 : document.getElementById("E").innerHTML = player_character;
+          E=player_turn;
+          break;
+          case 7 : document.getElementById("SW").innerHTML = player_character;
+          SW=player_turn;
+          break;
+          case 8 : document.getElementById("S").innerHTML = player_character;
+          S=player_turn;
+          break;
+          case 9 : document.getElementById("SE").innerHTML = player_character;
+          SE=player_turn;
+          break;
+        }
+        
+        //Player 1
+        //Horizontal
+        if (NW==1&&N==1&&NE==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+        state=1;
+        } 
+        else if (W==1&&C==1&&E==1){
+          document.getElementById("progress").innerHTML = player_result;
+          document.getElementById("player").innerHTML = "Game Over";
+          state = 1;
+        } 
+        else if (SW==1&&S==1&&SE==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        //Vertical
+        else if (NW==1&&W==1&&SW==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (N==1&&C==1&&S==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (NE==1&&E==1&&SE==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        //Diagonal
+        else if (NW==1&&C==1&&SE==1){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (NE==1&&C==1&&SW==1){document.getElementById("progress").innerHTML = player_result
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        //Player 2
+        else if (NW==0&&N==0&&NE==0){document.getElementById("progress").innerHTML = player_result
+        document.getElementById("player").innerHTML = "Game Over";
+        state=1;
+        } 
+        else if (W==0&&C==0&&E==0){
+          document.getElementById("progress").innerHTML = player_result;
+          document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        } 
+        else if (SW==0&&S==0&&SE==0){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        //Vertical
+        else if (NW==0&&W==0&&SW==0){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (N==0&&C==0&&S==0){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (NE==0&&E==0&&SE==0){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        //Diagonal
+        else if (NW==0&&C==0&&SE==0){document.getElementById("progress").innerHTML = player_result;
+            document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        }
+        else if (NE==0&&C==0&&SW==0){document.getElementById("progress").innerHTML = player_result;
+        document.getElementById("player").innerHTML = "Game Over";
+          state=1;
+        } 
+        else if (NW!=100&&N!=100&&NE!=100&&W!=100&&C!=100&&E!=100&&SW!=100&&S!=100&&SE!=100){
+          document.getElementById("player").innerHTML = "Game Over";
+          document.getElementById("progress").innerHTML = "Draw";
+          state=1;
+        }
+        else {document.getElementById("progress").innerHTML = "In Progress";}
+        
+        
+        document.getElementById("turns").innerHTML = "Turns: "+turn;
+        
+      }
+     // console.log("The state is "+state);
+     console.log(NW+" "+N+" "+NE);
+     }
+    </script>
+  </body>
+</html>
